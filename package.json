@@ -1,0 +1,25 @@
+{
+  "name": "MySQL-Employee-Tracker",
+  "version": "1.0.0",
+  "description": "Employee tracker utilizing MySQL for Berkeley Bootcamp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skuttenkuler/MySQL-Employee-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skuttenkuler/MySQL-Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/skuttenkuler/MySQL-Employee-Tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.0.3",
+    "mysql": "^2.17.1"
+  }
+}
