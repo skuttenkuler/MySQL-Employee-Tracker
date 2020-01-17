@@ -33,7 +33,17 @@ function init(){
       type: "list",
       name: "initial",
       message: "What would you like to do?",
-      choices:["View All Employees","View All Employees By Department", "View All Employees by Manager", "Add Employee","Remove Employee", "Update Employee Role", "Update Employee Manager"  ]
+      choices:[
+              "View All Employees",
+               "View All Employees By Department", 
+               "View All Employees by Manager", 
+               "Add Employee",
+               "Add Role",
+               "Add Department",
+               "Remove Employee",
+               "Update Employee Role", 
+               "Update Employee Manager"  
+              ]
     }
     //get answers
   ]).then(answers => {
@@ -46,32 +56,101 @@ function init(){
             return viewAllByDep();
       case "View All Employees by Manager":
             return viewAllMan();
-      case"Add Employee","Remove Employee":
+      case"Add Employee":
             return addEmployee();
+      case"Add Department":
+            return addDepartment();
+      case"Add Role":
+            return addRole();
       case "Update Employee Role":
             return updateRole();
       case "Update Employee Manager":
-            return updateManager()
+            return updateManager();
+      case "Remove Employee":
+            return removeEmployee();
   }
 
   });
 }
 
 function viewAll(){
-
+    let query = ("SELECT * FROM employees");
+    connect.query(query, function(err, res){
+      if (err) throw err;
+      for(var i = 0; i < res.length; i++){
+        console.log(res[i].id+"      |      " +res[i].first_name+"      |      "+ res[i].last_name + "      |      "+ res[i].role_id + "      |      "+ res[i].manager_id );
+      }
+    })
 }
 function viewAllByDep(){
-
+  inquire.prompt([
+    {
+      type: "list",
+      name: "department",
+      message: "Which Department?",
+      choices:[
+               "Finance",
+               "Engineering",
+               "Sales",
+               "Human",
+               "Resources",
+               "Legal",
+               "Marketing" 
+              ]
+    }
+    //get answers
+  ]).then(answers => {
+    let query = ("SELECT * FROM employees WHERE department = " + answers.department);
+    connect.query(query, function(err, res){
+      if (err) throw err;
+      for(var i = 0; i < res.length; i++){
+        console.log(res[i].id+"      |      " +res[i].first_name+"      |      "+ res[i].last_name + "      |      "+ res[i].role_id + "      |      "+ res[i].manager_id );
+      }
+    })
+  })
 }
 function viewAllMan(){
-
+    var managers = []
+    let query = ("SELECT * FROM employees WHERE manager_id = NULL");
+    connect.query(query, function(err, res){
+      if (err) throw err;
+      for(var i = 0; i < res.length; i++){
+        managers.push(res[i])
+      }
+    });
+  inquire.prompt([
+    {
+      type: "list",
+      name: "managers",
+      message: "Which Department?",
+      choices:[ managers ]
+    }
+    //get answers
+  ]).then(answer => {
+    let query = ("SELECT * FROM employees WHERE manager_id = " + answer.managers);
+    connect.query(query, function(err, res){
+      if (err) throw err;
+      for(var i = 0; i < res.length; i++){
+        console.log(res[i].id+"      |      " +res[i].first_name+"      |      "+ res[i].last_name + "      |      "+ res[i].role_id + "      |      "+ res[i].manager_id );
+      }
+    })
+  })
 }
 function addEmployee(){
+
+}
+function addDepartment(){
+
+}
+function addRole(){
 
 }
 function updateRole(){
 
 }
 function updateManager(){
+
+}
+function removeEmployee(){
 
 }
